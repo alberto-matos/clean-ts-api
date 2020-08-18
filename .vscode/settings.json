@@ -1,4 +1,6 @@
 {
     "prettier.vueIndentScriptAndStyle": true,
-    "prettier.semi": false
+    "prettier.semi": false,
+    "prettier.singleQuote": true,
+    "editor.acceptSuggestionOnCommitCharacter": false
 }

@@ -2,5 +2,12 @@
     "prettier.vueIndentScriptAndStyle": true,
     "prettier.semi": false,
     "prettier.singleQuote": true,
-    "editor.acceptSuggestionOnCommitCharacter": false
+    "editor.acceptSuggestionOnCommitCharacter": false,
+    "javascript.format.semicolons": "remove",
+    "typescript.format.semicolons": "remove",
+    "less.completion.completePropertyWithSemicolon": false,
+    "javascript.preferences.quoteStyle": "single",
+    "typescript.preferences.quoteStyle": "single",
+    "prettier.jsxSingleQuote": true,
+    "typescript.format.insertSpaceBeforeFunctionParenthesis": true
 }

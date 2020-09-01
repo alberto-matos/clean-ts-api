@@ -2,7 +2,7 @@ import { EmailValidatorAdapter } from './email-validator'
 import validator from 'validator'
 
 jest.mock('validator', () => ({
-  isEmail: (): boolean => {
+  isEmail: (email: string): boolean => {
     return true
   }
 }))
@@ -19,5 +19,12 @@ describe('EmailValidator Adapter', () => {
     const sut = new EmailValidatorAdapter()
     const isValid = sut.isValid('valid_email@email.com')
     expect(isValid).toBe(true)
+  })
+
+  test('Should call validator with correct email', async () => {
+    const sut = new EmailValidatorAdapter()
+    const isEmailSpy = jest.spyOn(validator, 'isEmail')
+    sut.isValid('any_valid_email@email.com')
+    expect(isEmailSpy).toHaveBeenCalledWith('any_valid_email@email.com')
   })
 })

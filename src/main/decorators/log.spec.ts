@@ -38,12 +38,27 @@ describe('Log Controller Decorator', () => {
     const handleStub = jest.spyOn(controllerStub, 'handle')
     const httpRequest: HttpRequest = {
       body: {
-        name: 'Daiane',
-        email: 'daiane@email.com',
-        password: '123456'
+        name: 'Daiane'
       }
     }
     await sut.handle(httpRequest)
     expect(handleStub).toHaveBeenCalledWith(httpRequest)
+  })
+  test('Should return the same result of the controller', async () => {
+    const { sut } = makeSut()
+    const httpRequest: HttpRequest = {
+      body: {
+        name: 'Daiane'
+      }
+    }
+    const httpResponse: HttpResponse = await sut.handle(httpRequest)
+    expect(httpResponse).toEqual({
+      statusCode: 200,
+      body: {
+        name: 'any_name',
+        email: 'any_email@email.com',
+        password: 'any_password'
+      }
+    })
   })
 })

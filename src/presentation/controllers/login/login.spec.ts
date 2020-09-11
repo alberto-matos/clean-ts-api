@@ -109,13 +109,11 @@ describe('Login Controller', () => {
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(serverError(new Error('any error')))
   })
-  test('Should return 500 if Authentication throws', async () => {
+  test('Should return 200 if valid authentication', async () => {
     const { sut, authenticationStub } = makeSut()
     const httpRequest = makeRequest()
-    jest.spyOn(authenticationStub, 'auth').mockImplementation(() => {
-      throw Error('any error')
-    })
+    jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(new Promise(resolve => resolve('any_token')))
     const httpResponse = await sut.handle(httpRequest)
-    expect(httpResponse).toEqual(serverError(new Error('any error')))
+    expect(httpResponse.body.accessToken).toBe('any_token')
   })
 })

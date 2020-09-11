@@ -1,6 +1,6 @@
 import {
   HttpRequest, HttpResponse, Controller, badRequest, serverError, unauthorized,
-  MissingParamError, InvalidParamError, EmailValidator, Authentication
+  MissingParamError, InvalidParamError, EmailValidator, Authentication, ok
 } from './login-protocols'
 
 export class LoginController implements Controller {
@@ -28,12 +28,7 @@ export class LoginController implements Controller {
       if (accessToken === null) {
         return unauthorized()
       } else {
-        return {
-          statusCode: 200,
-          body: {
-            accessToken
-          }
-        }
+        return ok({ accessToken })
       }
     } catch (error) {
       return serverError(error)

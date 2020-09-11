@@ -1,9 +1,8 @@
-import { badRequest, serverError, unauthorized } from '../../../presentation/helpers/http-helper'
-import { HttpRequest } from '../../protocols'
-import { EmailValidator } from '../../protocols/email-validator'
-import { InvalidParamError, MissingParamError } from '../../errors'
+import {
+  HttpRequest, badRequest, serverError, unauthorized, MissingParamError, InvalidParamError,
+  EmailValidator, Authentication
+} from './login-protocols'
 import { LoginController } from './login'
-import { Authentication } from '../../../domain/usecases/authentication'
 
 const makeRequest = (): HttpRequest => {
   return {

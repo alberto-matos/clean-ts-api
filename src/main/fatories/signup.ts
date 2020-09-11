@@ -1,6 +1,6 @@
 import {
   SignUpController, EmailValidatorAdapter, DbAddAccount, BcryptAdapter,
-  AccountMongoRepository, Controller, LogControllerDecorator
+  AccountMongoRepository, Controller, LogControllerDecorator, LogMongoRepository
 } from './'
 import env from '../../main/config/env'
 
@@ -10,5 +10,6 @@ export const makeSignupController = (): Controller => {
   const accountMongoRepository = new AccountMongoRepository()
   const dbAddAccount = new DbAddAccount(bcryptAdapter, accountMongoRepository)
   const signupController = new SignUpController(emailValidatorAdapter, dbAddAccount)
-  return new LogControllerDecorator(signupController)
+  const logMongoReposiory = new LogMongoRepository()
+  return new LogControllerDecorator(signupController, logMongoReposiory)
 }

@@ -6,7 +6,10 @@ const makeSut = (): CompareFieldsValidation => {
 }
 
 const makeFakeInput = (): Object => {
-  return { field: 'any_content', fieldToCompare: 'any_content' }
+  return {
+    field: 'any_content',
+    fieldToCompare: 'any_content'
+  }
 }
 
 describe('Required Field Validation', () => {

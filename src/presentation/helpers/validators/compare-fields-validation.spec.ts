@@ -15,4 +15,9 @@ describe('Required Field Validation', () => {
     const error = sut.validate(Object.assign({}, { ...makeFakeInput() }, { fieldToCompare: 'other_content' }))
     expect(error).toEqual(new InvalidParamError('fieldToCompare'))
   })
+  test('Should not return if CompareFieldValidation succeed', () => {
+    const sut = makeSut()
+    const error = sut.validate(makeFakeInput())
+    expect(error).toBeFalsy()
+  })
 })

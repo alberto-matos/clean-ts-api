@@ -17,7 +17,10 @@ interface SutTypes {
 }
 
 const makeSut = (): SutTypes => {
-  const validationStubs = [makeValidationsStub(), makeValidationsStub()]
+  const validationStubs = [
+    makeValidationsStub(),
+    makeValidationsStub()
+  ]
   const sut = new ValidationComposite(validationStubs)
   return {
     sut,
@@ -54,5 +57,11 @@ describe('Validation Composite', () => {
     jest.spyOn(validationStubs[1], 'validate').mockReturnValueOnce(new Error(''))
     const error = sut.validate(makeFakeInput())
     expect(error).toEqual(new MissingParamError('field'))
+  })
+
+  test('Should not return ValidationComposite if validation succeed', () => {
+    const { sut } = makeSut()
+    const error = sut.validate(makeFakeInput())
+    expect(error).toBeFalsy()
   })
 })

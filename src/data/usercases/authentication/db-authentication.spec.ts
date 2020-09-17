@@ -1,4 +1,4 @@
-import { LoadAccountByEmailRepository } from '../../protocols/load-account-by-email-repository'
+import { LoadAccountByEmailRepository } from '../../protocols/db/load-account-by-email-repository'
 import { AccountModel } from '../../../domain/models/account'
 import { DbAuthentication } from './db-authentication'
 import { AuthenticationModel } from '../../../domain/usecases/authentication'
@@ -21,7 +21,7 @@ const makeLoadAccountRepositoryStub = (): LoadAccountByEmailRepository => {
 
 const makeFakeAuthentication = (): AuthenticationModel => ({
   email: 'any_email@email.com',
-  password: 'any_apssword'
+  password: 'any_password'
 })
 
 interface SutTypes {

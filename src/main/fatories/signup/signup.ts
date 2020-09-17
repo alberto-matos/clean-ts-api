@@ -1,8 +1,5 @@
-import {
-  SignUpController, DbAddAccount, BcryptAdapter,
-  AccountMongoRepository, Controller, LogControllerDecorator, LogMongoRepository
-} from './'
-import env from '../../main/config/env'
+import { SignUpController, DbAddAccount, BcryptAdapter, AccountMongoRepository, Controller, LogControllerDecorator, LogMongoRepository } from './'
+import env from '../../../main/config/env'
 import { makeSignupValidation } from './signup-validation'
 
 export const makeSignupController = (): Controller => {

@@ -1,6 +1,6 @@
 import { Controller, HttpRequest, HttpResponse, LogErrorRepository, AccountModel } from '../../presentation/controllers/signup/signup-protocols'
 import { LogControllerDecorator } from './log'
-import { serverError, ok } from '../../presentation/helpers/http-helper'
+import { serverError, ok } from '../../presentation/helpers/http/http-helper'
 
 const makeFakeHttpRequest = (): HttpRequest => ({
   body: {

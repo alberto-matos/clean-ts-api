@@ -44,6 +44,7 @@ describe('DbAuthentication UseCase', () => {
     await sut.auth(makeFakeAuthentication())
     expect(loadSpy).toHaveBeenCalledWith('any_email@email.com')
   })
+
   test('Should throw if LoadAccountByEmailRepository throws exception', async () => {
     const { sut, loadAccountRepositoryStub } = makeSut()
     jest.spyOn(loadAccountRepositoryStub, 'load').mockImplementationOnce(async (email: string): Promise<AccountModel> => {
@@ -54,5 +55,12 @@ describe('DbAuthentication UseCase', () => {
     const promise = sut.auth(makeFakeAuthentication())
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     await expect(promise).rejects.toThrow()
+  })
+
+  test('Should return null if LoadAccountByEmailRepository returns null', async () => {
+    const { sut, loadAccountRepositoryStub } = makeSut()
+    jest.spyOn(loadAccountRepositoryStub, 'load').mockReturnValue(null)
+    const accessToken = await sut.auth(makeFakeAuthentication())
+    expect(accessToken).toBeNull()
   })
 })

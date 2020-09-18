@@ -96,4 +96,12 @@ describe('DbAuthentication UseCase', () => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     await expect(promise).rejects.toThrow()
   })
+
+  test('Should return null if HashComparer returns null', async () => {
+    const { sut, hashComparerStub } = makeSut()
+    jest.spyOn(hashComparerStub, 'compare').mockReturnValueOnce(new Promise(resolve => resolve(true)))
+    const accessToken = await sut.auth(makeFakeAuthentication())
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    await expect(accessToken).toBeNull()
+  })
 })

@@ -124,4 +124,16 @@ describe('DbAuthentication UseCase', () => {
     await sut.auth(makeFakeAuthentication())
     expect(generateSpy).toHaveBeenCalledWith('any_id')
   })
+
+  test('Should throw if TokenGenerator throws exception', async () => {
+    const { sut, tokenGeneratorStub } = makeSut()
+    jest.spyOn(tokenGeneratorStub, 'generate').mockImplementationOnce(async (value: string): Promise<string> => {
+      return await new Promise((resolve, reject) => {
+        reject(new Error('any error'))
+      })
+    })
+    const promise = sut.auth(makeFakeAuthentication())
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    await expect(promise).rejects.toThrow()
+  })
 })

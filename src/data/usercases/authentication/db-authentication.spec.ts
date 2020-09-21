@@ -162,4 +162,12 @@ describe('DbAuthentication UseCase', () => {
     await sut.auth(makeFakeAuthentication())
     expect(generateSpy).toHaveBeenCalledWith('any_id', 'accessToken')
   })
+
+  test('Should throw if UpdateAccessTokenRepository throws exception', async () => {
+    const { sut, updateAccessTokenRepositoryStub } = makeSut()
+    jest.spyOn(updateAccessTokenRepositoryStub, 'update').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error('any error'))))
+    const promise = sut.auth(makeFakeAuthentication())
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    await expect(promise).rejects.toThrow()
+  })
 })

@@ -6,7 +6,7 @@ import { HashComparer } from '../../protocols/criptography/hash-comparer'
 import { TokenGenerator } from '../../protocols/criptography/token-generator'
 
 const makeFakeAccount = (): AccountModel => ({
-  id: 1,
+  id: 'any_id',
   name: 'any_name',
   email: 'any_email@email.com',
   password: 'hashed_password'
@@ -122,6 +122,6 @@ describe('DbAuthentication UseCase', () => {
     const { sut, tokenGeneratorStub } = makeSut()
     const generateSpy = jest.spyOn(tokenGeneratorStub, 'generate')
     await sut.auth(makeFakeAuthentication())
-    expect(generateSpy).toHaveBeenCalledWith('any_email@email.com')
+    expect(generateSpy).toHaveBeenCalledWith('any_id')
   })
 })

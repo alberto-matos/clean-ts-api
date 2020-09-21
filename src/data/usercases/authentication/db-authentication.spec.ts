@@ -136,4 +136,10 @@ describe('DbAuthentication UseCase', () => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     await expect(promise).rejects.toThrow()
   })
+
+  test('Should return TokenGenerator correct accessToken', async () => {
+    const { sut } = makeSut()
+    const accessToken = await sut.auth(makeFakeAuthentication())
+    expect(accessToken).toBe('accessToken')
+  })
 })

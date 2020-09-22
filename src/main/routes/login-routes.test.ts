@@ -51,5 +51,20 @@ describe('Login Routes', () => {
         })
         .expect(200)
     })
+    test('Should return 401 if password wronged', async () => {
+      const passwordHashed = await hash('321', salt)
+      await accountCollection.insertOne({
+        name: 'Alberto',
+        email: 'alberto@email.com',
+        password: passwordHashed
+      })
+      await request(app)
+        .post('/api/login')
+        .send({
+          email: 'alberto@email.com',
+          password: '123'
+        })
+        .expect(401)
+    })
   })
 })

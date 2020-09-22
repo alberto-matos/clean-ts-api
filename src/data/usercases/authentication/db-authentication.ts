@@ -6,8 +6,7 @@ export class DbAuthentication implements Authentication {
   private readonly encrypter: Encrypter
   private readonly updateAccessTokenRepository: UpdateAccessTokenRepository
 
-  constructor (
-    loadAccountRepository: LoadAccountByEmailRepository, hashComparer: HashComparer, encrypter: Encrypter, updateAccessTokenRepository: UpdateAccessTokenRepository) {
+  constructor (loadAccountRepository: LoadAccountByEmailRepository, hashComparer: HashComparer, encrypter: Encrypter, updateAccessTokenRepository: UpdateAccessTokenRepository) {
     this.loadAccountRepository = loadAccountRepository
     this.hashComparer = hashComparer
     this.encrypter = encrypter
@@ -20,7 +19,7 @@ export class DbAuthentication implements Authentication {
     if (account) {
       if (await this.hashComparer.compare(authentication.password, account.password)) {
         accessToken = await this.encrypter.encrypt(account.id)
-        await this.updateAccessTokenRepository.update(account.id, accessToken)
+        await this.updateAccessTokenRepository.updateAccessToken(account.id, accessToken)
       }
     }
     return accessToken

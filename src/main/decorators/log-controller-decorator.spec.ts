@@ -1,5 +1,5 @@
-import { Controller, HttpRequest, HttpResponse, LogErrorRepository, AccountModel } from '../../presentation/controllers/signup/signup-protocols'
-import { LogControllerDecorator } from './log'
+import { Controller, HttpRequest, HttpResponse, LogErrorRepository, AccountModel } from '../../presentation/controllers/signup/signup-controller-protocols'
+import { LogControllerDecorator } from './log-controller-decorator'
 import { serverError, ok } from '../../presentation/helpers/http/http-helper'
 
 const makeFakeHttpRequest = (): HttpRequest => ({

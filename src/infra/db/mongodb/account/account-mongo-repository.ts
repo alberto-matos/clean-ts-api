@@ -1,4 +1,4 @@
-import { AddAccountRepository, AddAccountModel, AccountModel, LoadAccountByEmailRepository, UpdateAccessTokenRepository } from './account-protocols'
+import { AddAccountRepository, AddAccountModel, AccountModel, LoadAccountByEmailRepository, UpdateAccessTokenRepository } from './account-mongo-repository-protocols'
 import { MongoHelper } from '../helpers/mongo-helper'
 import { Collection } from 'mongodb'
 export class AccountMongoRepository implements AddAccountRepository, LoadAccountByEmailRepository, UpdateAccessTokenRepository {

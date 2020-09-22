@@ -1,5 +1,5 @@
 export * from '../../protocols'
 export * from '../../../domain/usecases/add-account'
 export * from '../../../domain/models/account'
-export * from '../../../data/protocols/db/log-error-repository'
+export * from '../../../data/protocols/db/log/log-error-repository'
 export * from '../../protocols/validation'

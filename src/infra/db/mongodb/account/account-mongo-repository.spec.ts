@@ -1,7 +1,7 @@
 import { Collection } from 'mongodb'
 import { AddAccountModel } from '../../../../main/fatories/signup'
 import { MongoHelper } from '../helpers/mongo-helper'
-import { AccountMongoRepository } from './account'
+import { AccountMongoRepository } from './account-mongo-repository'
 
 const makeFakeAccount = (): AddAccountModel => ({
   name: 'any_name',

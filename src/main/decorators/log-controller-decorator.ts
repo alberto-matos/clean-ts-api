@@ -1,4 +1,4 @@
-import { Controller, HttpRequest, HttpResponse, LogErrorRepository } from '../../presentation/controllers/signup/signup-protocols'
+import { Controller, HttpRequest, HttpResponse, LogErrorRepository } from '../../presentation/controllers/signup/signup-controller-protocols'
 
 export class LogControllerDecorator implements Controller {
   private readonly controller: Controller

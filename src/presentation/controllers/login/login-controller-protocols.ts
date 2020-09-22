@@ -1,6 +1,6 @@
 export * from '../../protocols'
 export * from '../../protocols/controller'
-export * from '../../../presentation/helpers/http/http-helper'
+export * from '../../helpers/http/http-helper'
 export * from '../../errors'
 export * from '../../../domain/usecases/authentication'
 export * from '../../protocols/validation'

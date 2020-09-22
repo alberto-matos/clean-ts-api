@@ -1,5 +1,5 @@
-import { HttpRequest, badRequest, serverError, unauthorized, MissingParamError, Validation, Authentication, AuthenticationModel, ok } from './login-protocols'
-import { LoginController } from './login'
+import { HttpRequest, badRequest, serverError, unauthorized, MissingParamError, Validation, Authentication, AuthenticationModel, ok } from './login-controller-protocols'
+import { LoginController } from './login-controller'
 
 const makeRequest = (): HttpRequest => {
   return {

@@ -1,8 +1,8 @@
 import { MissingParamError, ServerError } from '../../errors'
-import { SignUpController } from './signup'
-import { AddAccount, AddAccountModel, AccountModel, Validation } from './signup-protocols'
+import { SignUpController } from './signup-controller'
+import { AddAccount, AddAccountModel, AccountModel, Validation } from './signup-controller-protocols'
 import { HttpRequest } from '../../protocols/http'
-import { ok, badRequest } from '../../../presentation/helpers/http/http-helper'
+import { ok, badRequest } from '../../helpers/http/http-helper'
 
 const makeFakeHttpRequest = (): HttpRequest => ({
   body: {

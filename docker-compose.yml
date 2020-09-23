@@ -18,4 +18,5 @@ services:
       - ./dist:/usr/dev/clean-node-api/dist
     ports: 
       - "5050:5050"
-    links: mongodb
+    links: 
+      - mongodb

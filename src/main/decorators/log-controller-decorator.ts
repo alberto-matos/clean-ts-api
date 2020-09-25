@@ -1,4 +1,5 @@
-import { Controller, HttpRequest, HttpResponse, LogErrorRepository } from '../../presentation/controllers/signup/signup-controller-protocols'
+import { Controller, HttpRequest, HttpResponse } from '../../presentation/controllers/signup/signup-controller-protocols'
+import { LogErrorRepository } from '../../data/protocols/db/log/log-error-repository'
 
 export class LogControllerDecorator implements Controller {
   constructor (

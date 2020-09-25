@@ -4,7 +4,6 @@
     "prettier.singleQuote": true,
     "editor.acceptSuggestionOnCommitCharacter": false,
     "javascript.format.semicolons": "remove",
-    "typescript.format.semicolons": "remove",
     "less.completion.completePropertyWithSemicolon": false,
     "javascript.preferences.quoteStyle": "single",
     "typescript.preferences.quoteStyle": "single",

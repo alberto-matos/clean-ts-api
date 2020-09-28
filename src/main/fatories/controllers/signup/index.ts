@@ -1,5 +1,5 @@
-export * from '../../../../presentation/controllers/signup/signup-controller-protocols'
-export * from '../../../../presentation/controllers/signup/signup-controller'
+export * from '../../../../presentation/controllers/login/signup/signup-controller-protocols'
+export * from '../../../../presentation/controllers/login/signup/signup-controller'
 export * from '../../../../infra/validators/email-validator-adapter'
 export * from '../../../../infra/db/mongodb/log/log-mongo-repository'
 export * from '../../../decorators/log-controller-decorator'

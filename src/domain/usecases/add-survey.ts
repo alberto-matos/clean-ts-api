@@ -1,11 +1,11 @@
+export interface SurveyAnswer {
+  image?: string
+  answer: string
+}
+
 export interface AddSurveyModel {
-  body: {
-    question: string
-    answers: [{
-      image?: string
-      answer: string
-    }]
-  }
+  question: string
+  answers: SurveyAnswer[]
 }
 
 export interface AddSurvey {

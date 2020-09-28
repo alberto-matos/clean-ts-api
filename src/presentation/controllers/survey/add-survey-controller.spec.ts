@@ -49,7 +49,7 @@ describe('Survey - AddSurvey Controller', () => {
   test('Should return badRequest if Validation returns fails', async () => {
     const { sut, validationStub } = makeSut()
     jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new Error('any_error'))
-    const survey = await sut.handle(makeFakeRequest())
-    expect(survey).toEqual(badRequest(new Error('any_error')))
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(badRequest(new Error('any_error')))
   })
 })

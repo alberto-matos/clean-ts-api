@@ -1,4 +1,4 @@
-import { Controller, HttpRequest, HttpResponse, AccountModel } from '../../presentation/controllers/signup/signup-controller-protocols'
+import { Controller, HttpRequest, HttpResponse, AccountModel } from '../../presentation/controllers/login/signup/signup-controller-protocols'
 import { LogErrorRepository } from '../../data/protocols/db/log/log-error-repository'
 import { LogControllerDecorator } from './log-controller-decorator'
 import { serverError, ok } from '../../presentation/helpers/http/http-helper'

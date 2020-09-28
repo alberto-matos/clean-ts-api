@@ -13,12 +13,12 @@ const makeFakeRequest = (): HttpRequest => {
   }
 }
 
-interface TypeSut {
+interface sutTypes {
   sut: Controller
   validationStub: Validation
 }
 
-const makeSut = (): TypeSut => {
+const makeSut = (): sutTypes => {
   const validationStub = makeValidationStub()
   const sut = new AddSurveyController(validationStub)
   return {

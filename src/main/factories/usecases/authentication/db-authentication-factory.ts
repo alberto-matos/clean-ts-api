@@ -3,7 +3,7 @@ import { AccountMongoRepository } from '../../../../infra/db/mongodb/account/acc
 import { BcryptAdapter } from '../../../../infra/criptography/bcrypt-adapter/bcrypt-adapter'
 import { JwtAdapter } from '../../../../infra/criptography/jwt-adapter/jwt-adapter'
 import { Authentication } from '../../../../domain/usecases/authentication'
-import env from '../../../config/env'
+import env from '../../../config/environments'
 
 export const makeAuthentication = (): Authentication => {
   const accountMongoRepository = new AccountMongoRepository()

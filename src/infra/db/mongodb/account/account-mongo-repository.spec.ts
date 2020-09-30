@@ -1,5 +1,5 @@
 import { Collection } from 'mongodb'
-import { AddAccountModel } from '../../../../main/fatories/signup'
+import { AddAccountModel } from '../../../../main/factories/controllers/signup'
 import { MongoHelper } from '../helpers/mongo-helper'
 import { AccountMongoRepository } from './account-mongo-repository'
 

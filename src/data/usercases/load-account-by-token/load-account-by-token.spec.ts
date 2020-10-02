@@ -64,6 +64,6 @@ describe('DbLoadAccountByToken Usecase', () => {
     const { sut, loadAccountByTokenRepositoryStub } = makeSut()
     const loadByTokenSpy = await jest.spyOn(loadAccountByTokenRepositoryStub, 'loadByToken')
     await sut.load('any_token', 'any_role')
-    expect(loadByTokenSpy).toHaveBeenCalledWith('descypted_token')
+    expect(loadByTokenSpy).toHaveBeenCalledWith('descypted_token', 'any_role')
   })
 })

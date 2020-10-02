@@ -1,5 +1,7 @@
 import { DbLoadAccountByToken } from './load-account-by-token'
+import { LoadAccountByTokenRepository } from '../../../data/protocols/db/account/load-account-by-token-repository'
 import { Decrypter } from '../../protocols/criptography/decrypter'
+import { AccountModel } from '../../../domain/models/account'
 
 const makeDecrypterStub = (): Decrypter => {
   class DecrypterStub implements Decrypter {
@@ -10,17 +12,36 @@ const makeDecrypterStub = (): Decrypter => {
   return new DecrypterStub()
 }
 
+const makeFakeAccount = (): AccountModel => ({
+  id: 'any_id',
+  name: 'any_name',
+  email: 'any_email',
+  password: 'any_password'
+})
+
+const makeLoadAccountByTokenRepository = (): LoadAccountByTokenRepository => {
+  class LoadAccountByTokenRepositoryStub implements LoadAccountByTokenRepository {
+    async loadAccountByToken (accessToken: string, role?: string): Promise<AccountModel> {
+      return await Promise.resolve(makeFakeAccount())
+    }
+  }
+  return new LoadAccountByTokenRepositoryStub()
+}
+
 interface SutTypes {
   sut: DbLoadAccountByToken
   decrypterStub: Decrypter
+  loadAccountByTokenRepositoryStub: LoadAccountByTokenRepository
 }
 
 const makeSut = (): SutTypes => {
   const decrypterStub = makeDecrypterStub()
-  const sut = new DbLoadAccountByToken(decrypterStub)
+  const loadAccountByTokenRepositoryStub = makeLoadAccountByTokenRepository()
+  const sut = new DbLoadAccountByToken(decrypterStub, loadAccountByTokenRepositoryStub)
   return {
     sut,
-    decrypterStub
+    decrypterStub,
+    loadAccountByTokenRepositoryStub
   }
 }
 
@@ -37,5 +58,12 @@ describe('DbLoadAccountByToken Usecase', () => {
     jest.spyOn(decrypterStub, 'decrypt').mockReturnValueOnce(null)
     const account = await sut.load('any_token', 'any_role')
     expect(account).toBeFalsy()
+  })
+
+  test('should DbLoadAccountByToken calls LoadAccountByTokenRepository with correct decrypted token', async () => {
+    const { sut, loadAccountByTokenRepositoryStub } = makeSut()
+    const loadAccountByTokenSpy = await jest.spyOn(loadAccountByTokenRepositoryStub, 'loadAccountByToken')
+    await sut.load('any_token', 'any_role')
+    expect(loadAccountByTokenSpy).toHaveBeenCalledWith('descypted_token')
   })
 })

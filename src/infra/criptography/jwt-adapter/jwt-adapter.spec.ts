@@ -5,6 +5,9 @@ import jwt from 'jsonwebtoken'
 jest.mock('jsonwebtoken', () => ({
   sign (): string {
     return 'any_token'
+  },
+  verify (): string {
+    return 'token_valid'
   }
 }))
 
@@ -32,4 +35,10 @@ describe('Jwt Adapter', () => {
     const promise = sut.encrypt('any_value')
     await expect(promise).rejects.toThrow()
   })
+//  test('should call decrypt with correct values', async () => {
+//    const sut = makeSut()
+//    const verifySpy = await jest.spyOn(jwt, 'verify')
+//    await sut.decrypt('any_token', 'secretKey')
+//    expect(verifySpy).toHaveBeenCalledWith('any_token', 'secretKey')
+//  })
 })

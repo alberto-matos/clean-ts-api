@@ -30,7 +30,7 @@ describe('Jwt Adapter', () => {
     test('Should throw if sign throws exception', async () => {
       const sut = makeSut()
       jest.spyOn(jwt, 'sign').mockImplementationOnce(() => {
-        throw Error('')
+        throw new Error('')
       })
       const promise = sut.encrypt('any_value')
       await expect(promise).rejects.toThrow()
@@ -45,9 +45,17 @@ describe('Jwt Adapter', () => {
     })
     test('should return value on verify success', async () => {
       const sut = makeSut()
-      await jest.spyOn(jwt, 'verify')
+      jest.spyOn(jwt, 'verify')
       const value = await sut.decrypt('any_token')
       expect(value).toBe('valid_token')
+    })
+    test('should throw verify throws exception', async () => {
+      const sut = makeSut()
+      jest.spyOn(jwt, 'verify').mockImplementation(() => {
+        throw new Error('')
+      })
+      const promise = sut.decrypt('any_token')
+      await expect(promise).rejects.toThrow()
     })
   })
 })

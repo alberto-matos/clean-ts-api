@@ -1,12 +1,13 @@
 import { Collection } from 'mongodb'
-import { AddAccountModel } from '../../../../main/factories/controllers/signup'
+import { AddAccountModel } from '../../../../main/factories/controllers/login/signup'
 import { MongoHelper } from '../helpers/mongo-helper'
 import { AccountMongoRepository } from './account-mongo-repository'
 
 const makeFakeAccount = (): AddAccountModel => ({
   name: 'any_name',
   email: 'any_email@email.com',
-  password: 'any_password'
+  password: 'any_password',
+  accessToken: 'any_token'
 })
 
 let accountCollection: Collection
@@ -66,6 +67,19 @@ describe('Account Mongo Repository', () => {
       account = await sut.loadByEmail(account.email)
       expect(account).toBeTruthy()
       expect(account.accessToken).toBe('any_token')
+    })
+  })
+
+  describe('loadByToken()', () => {
+    test('Should return an account on loadByToken without role', async () => {
+      const sut = makeSut()
+      await accountCollection.insertOne(makeFakeAccount())
+      const account = await sut.loadByToken('any_token')
+      expect(account).toBeTruthy()
+      expect(account.id).toBeTruthy()
+      expect(account.name).toBe('any_name')
+      expect(account.email).toBe('any_email@email.com')
+      expect(account.password).toBe('any_password')
     })
   })
 })

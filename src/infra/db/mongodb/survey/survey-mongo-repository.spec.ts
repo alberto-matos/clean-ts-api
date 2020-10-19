@@ -47,7 +47,6 @@ describe('Survey Mongo Repository', () => {
       const { sut } = makeSut()
       const addSurvey = await sut.add(makeFakeSurvey())
       const survey = await surveyCollection.findOne({ question: 'any_question' })
-
       expect(addSurvey).toBeFalsy()
       expect(survey).toBeTruthy()
     })
@@ -61,6 +60,12 @@ describe('Survey Mongo Repository', () => {
       const surveys = await sut.loadAll()
       expect(surveys.length).toBe(2)
       expect(surveys[0].question).toBe('any_question')
+    })
+
+    test('Should load empty list', async () => {
+      const { sut } = makeSut()
+      const surveys = await sut.loadAll()
+      expect(surveys.length).toBe(0)
     })
   })
 })

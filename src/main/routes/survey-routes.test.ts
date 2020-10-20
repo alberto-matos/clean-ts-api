@@ -54,7 +54,6 @@ describe('Survey Routes', () => {
         })
         .expect(403)
     })
-
     test('Should return 204 on add survey with valid accessToken', async () => {
       const id = await insertFakeAccount()
       const accessToken = jwt.sign({ id }, env.secretKey)
@@ -74,6 +73,14 @@ describe('Survey Routes', () => {
           ]
         })
         .expect(204)
+    })
+  })
+
+  describe('GET /surveys', () => {
+    test('Should return 403 on load surveys without accessToken', async () => {
+      await request(app)
+        .get('/api/surveys')
+        .expect(403)
     })
   })
 })

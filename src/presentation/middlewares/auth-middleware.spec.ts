@@ -1,6 +1,6 @@
 import { AuthMiddleware } from './auth-middleware'
 import { LoadAccountByToken, HttpRequest, accessDenied, ok, serverError } from './auth-middleware-protocols'
-import { AccountModel } from '../../domain/models/account'
+import { AccountModel } from '@/domain/models/account'
 
 const makeFakeRequest = (): HttpRequest => ({
   headers: {

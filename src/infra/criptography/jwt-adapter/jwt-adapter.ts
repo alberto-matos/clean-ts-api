@@ -1,5 +1,5 @@
-import { Encrypter } from '../../../data/protocols/criptography/encrypter'
-import { Decrypter } from '../../../data/protocols/criptography/decrypter'
+import { Encrypter } from '@/data/protocols/criptography/encrypter'
+import { Decrypter } from '@/data/protocols/criptography/decrypter'
 import jwt from 'jsonwebtoken'
 
 export class JwtAdapter implements Encrypter, Decrypter {
@@ -11,7 +11,6 @@ export class JwtAdapter implements Encrypter, Decrypter {
 
   async decrypt (value: string): Promise<string> {
     const verifiedValue: any = jwt.verify(value, this.secretKey)
-    console.log('############## verifiedValue:', verifiedValue)
     return await Promise.resolve(verifiedValue)
   }
 }

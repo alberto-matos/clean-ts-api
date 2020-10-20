@@ -1,9 +1,9 @@
-import { DbAuthentication } from '../../../../../data/usercases/authentication/db-authentication'
-import { AccountMongoRepository } from '../../../../../infra/db/mongodb/account/account-mongo-repository'
-import { BcryptAdapter } from '../../../../../infra/criptography/bcrypt-adapter/bcrypt-adapter'
-import { JwtAdapter } from '../../../../../infra/criptography/jwt-adapter/jwt-adapter'
-import { Authentication } from '../../../../../domain/usecases/authentication'
-import env from '../../../../config/environments'
+import { DbAuthentication } from '@/data/usercases/authentication/db-authentication'
+import { Authentication } from '@/domain/usecases/authentication'
+import { BcryptAdapter } from '@/infra/criptography/bcrypt-adapter/bcrypt-adapter'
+import { JwtAdapter } from '@/infra/criptography/jwt-adapter/jwt-adapter'
+import { AccountMongoRepository } from '@/infra/db/mongodb/account/account-mongo-repository'
+import env from '@/main/config/environments'
 
 export const makeAuthentication = (): Authentication => {
   const accountMongoRepository = new AccountMongoRepository()

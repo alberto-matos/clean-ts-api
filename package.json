@@ -2,11 +2,14 @@
   "name": "clean-node-api",
   "version": "1.4.0",
   "description": "",
+  "_moduleAliases": {
+    "@": "./dist"
+  },
   "main": "outro-teste.js",
   "scripts": {
     "start": "node dist/main/server.js",
     "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
-    "build": "rimraf dist && tsc",
+    "build": "rimraf dist && tsc -p tsconfig-build.json",
     "up": "npm run build && docker-compose up -d",
     "down": "docker-compose down",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
@@ -53,6 +56,7 @@
     "bcrypt": "^5.0.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "module-alias": "^2.2.2",
     "mongodb": "^3.6.1",
     "nodemon": "^2.0.6",
     "validator": "^13.1.1"

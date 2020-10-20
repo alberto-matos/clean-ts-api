@@ -1,5 +1,5 @@
-import { LoadSurveysRepository } from '../../../../data/protocols/db/survey/load-survey-repository'
-import { SurveyModel } from '../../../../domain/models/survey'
+import { LoadSurveysRepository } from '@/data/protocols/db/survey/load-survey-repository'
+import { SurveyModel } from '@/domain/models/survey'
 import { AddSurveyRepository, AddSurveyModel, MongoHelper, Collection } from './survey-mongo-repository-protocols'
 
 export class SurveyMongoRepository implements AddSurveyRepository, LoadSurveysRepository {

@@ -8,6 +8,27 @@ import env from '../config/environments'
 let surveyCollection: Collection
 let accountCollection: Collection
 
+const makeAccessToken = async (): Promise<string> => {
+  const id = await insertFakeAccount()
+  const accessToken = jwt.sign({ id }, env.secretKey)
+  await updateFakeAccount(id, accessToken)
+  return accessToken
+}
+
+const makeFakeSurvey = (): any => {
+  return {
+    question: 'any_question',
+    answers: [
+      {
+        image: 'http://image-name.jpg',
+        answer: 'any_answer'
+      }, {
+        answer: 'other_answer'
+      }
+    ]
+  }
+}
+
 const insertFakeAccount = async (): Promise<string> => {
   return (await accountCollection.insertOne({
     name: 'any_name',
@@ -63,37 +84,16 @@ describe('Survey Routes', () => {
     test('Should return 403 on add survey without accessToken', async () => {
       await request(app)
         .post('/api/surveys')
-        .send({
-          question: 'any_question',
-          answers: [
-            {
-              image: 'http://image-name.jpg',
-              answer: 'any_answer'
-            }, {
-              answer: 'other_answer'
-            }
-          ]
-        })
+        .send(makeFakeSurvey())
         .expect(403)
     })
+
     test('Should return 204 on add survey with valid accessToken', async () => {
-      const id = await insertFakeAccount()
-      const accessToken = jwt.sign({ id }, env.secretKey)
-      await updateFakeAccount(id, accessToken)
+      const accessToken = await makeAccessToken()
       await request(app)
         .post('/api/surveys')
         .set('x-access-token', accessToken)
-        .send({
-          question: 'any_question',
-          answers: [
-            {
-              image: 'http://image-name.jpg',
-              answer: 'any_answer'
-            }, {
-              answer: 'other_answer'
-            }
-          ]
-        })
+        .send(makeFakeSurvey())
         .expect(204)
     })
   })
@@ -106,9 +106,7 @@ describe('Survey Routes', () => {
     })
 
     test('Should return 200 on load surveys with valid accessToken', async () => {
-      const id = await insertFakeAccount()
-      const accessToken = jwt.sign({ id }, env.secretKey)
-      await updateFakeAccount(id, accessToken)
+      const accessToken = await makeAccessToken()
       await insertFakeSurveys()
       await request(app)
         .get('/api/surveys')

@@ -17,6 +17,28 @@ const insertFakeAccount = async (): Promise<string> => {
   })).ops[0]._id
 }
 
+const insertFakeSurveys = async (): Promise<void> => {
+  await surveyCollection.insertMany(
+    [{
+      id: 'any_id',
+      question: 'any_question',
+      answers: [{
+        image: 'any_image',
+        answer: 'any_answer'
+      }],
+      date: new Date()
+    }, {
+      id: 'other_id',
+      question: 'other_question',
+      answers: [{
+        image: 'other_image',
+        answer: 'other_answer'
+      }],
+      date: new Date()
+    }]
+  )
+}
+
 const updateFakeAccount = async (id: string, accessToken: string): Promise<void> => {
   await accountCollection.updateOne({ _id: id }, { $set: { accessToken } })
 }
@@ -81,6 +103,17 @@ describe('Survey Routes', () => {
       await request(app)
         .get('/api/surveys')
         .expect(403)
+    })
+
+    test('Should return 200 on load surveys with valid accessToken', async () => {
+      const id = await insertFakeAccount()
+      const accessToken = jwt.sign({ id }, env.secretKey)
+      await updateFakeAccount(id, accessToken)
+      await insertFakeSurveys()
+      await request(app)
+        .get('/api/surveys')
+        .set('x-access-token', accessToken)
+        .expect(200)
     })
   })
 })

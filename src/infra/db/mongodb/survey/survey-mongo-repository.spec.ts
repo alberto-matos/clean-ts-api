@@ -4,7 +4,7 @@ import { Collection } from 'mongodb'
 
 let surveyCollection: Collection
 
-interface SutTypes {
+type SutTypes = {
   sut: SurveyMongoRepository
 }
 

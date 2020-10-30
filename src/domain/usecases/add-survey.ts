@@ -8,6 +8,6 @@ export type AddSurveyModel = Omit<SurveyModel, 'id'>
 //   date: Date
 // }
 
-export type AddSurvey = {
+export interface AddSurvey {
   add: (addSurveyModel: AddSurveyModel) => Promise<void>
 }

@@ -1,4 +1,4 @@
-export * from '@/data/usercases/load-surveys/db-load-surveys'
+export * from '@/data/usercases/survey/load-surveys/db-load-surveys'
 export * from '@/main/factories/decorators/log-controller-decorator-factory'
 export * from '@/main/factories/usecases/survey/load-surveys/db-load-surveys-factory'
 export * from '@/presentation/controllers/survey/load-survey/load-surveys-controller'

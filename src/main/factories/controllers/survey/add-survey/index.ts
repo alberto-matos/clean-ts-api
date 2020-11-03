@@ -1,5 +1,5 @@
 export * from './add-survey-validation-factory'
-export * from '@/data/usercases/add-survey/db-add-survey'
+export * from '@/data/usercases/survey/add-survey/db-add-survey'
 export * from '@/main/factories/decorators/log-controller-decorator-factory'
 export * from '@/main/factories/usecases/survey/add-survey/db-add-account-factory'
 export * from '@/presentation/controllers/survey/add-survey/add-survey-controller'

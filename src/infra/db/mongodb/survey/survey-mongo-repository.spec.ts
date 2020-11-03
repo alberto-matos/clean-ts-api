@@ -71,13 +71,13 @@ describe('Survey Mongo Repository', () => {
 
   describe('loadById()', () => {
     test('Should load by id on success', async () => {
-      let surveyData = makeFakeSurvey()
-      const res = await surveyCollection.insertOne(surveyData)
+      const surveyFakeInsert = makeFakeSurvey()
+      const surveyData = makeFakeSurvey()
+      const res = await surveyCollection.insertOne(surveyFakeInsert)
       const { sut } = makeSut()
       const id = res.ops[0]._id
       const survey = await sut.loadById(id)
-      surveyData = Object.assign({}, surveyData, { _id: id })
-      expect(survey).toEqual(surveyData)
+      expect(survey).toEqual(Object.assign({}, surveyData, { id }))
     })
   })
 })

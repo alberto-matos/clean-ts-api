@@ -1,6 +1,6 @@
-import { SurveyResultMongoRepository, DbSaveSurveyResult } from './'
+import { SurveyResultMongoRepository, DbSaveSurveyResult, SaveSurveyResult } from './'
 
-export const makeSaveSurveyResult = (): DbSaveSurveyResult => {
+export const makeDbSaveSurveyResult = (): SaveSurveyResult => {
   const surveyMongoRepository = new SurveyResultMongoRepository()
   return new DbSaveSurveyResult(surveyMongoRepository)
 }

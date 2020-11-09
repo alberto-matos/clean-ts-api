@@ -1,6 +1,6 @@
-import { DbLoadSurveyById, SurveyMongoRepository } from '.'
+import { DbLoadSurveyById, SurveyMongoRepository, LoadSurveyById } from '.'
 
-export const makeLoadSurveyById = (): DbLoadSurveyById => {
-  const surveyResultMongoRepository = new SurveyMongoRepository()
-  return new DbLoadSurveyById(surveyResultMongoRepository)
+export const makeDbLoadSurveyById = (): LoadSurveyById => {
+  const surveyMongoRepository = new SurveyMongoRepository()
+  return new DbLoadSurveyById(surveyMongoRepository)
 }

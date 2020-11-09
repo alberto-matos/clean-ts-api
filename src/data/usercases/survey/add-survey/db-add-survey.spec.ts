@@ -1,6 +1,7 @@
 import { AddSurveyParams, AddSurveyRepository } from './db-add-survey-protocols'
 import { DbAddSurvey } from './db-add-survey'
 import MockDate from 'mockdate'
+import { throwError } from '@/domain/test'
 
 const makeFakeRequest = (): AddSurveyParams => {
   return {
@@ -54,7 +55,7 @@ describe('DbAddSurvey Usecase', () => {
   test('Should throw if AddSurveyRepository throws', async () => {
     const { sut, addSurveyRepositoryStub } = makeSut()
     // eslint-disable-next-line promise/param-names
-    jest.spyOn(addSurveyRepositoryStub, 'add').mockReturnValueOnce(new Promise((_resolve, reject) => reject(new Error())))
+    jest.spyOn(addSurveyRepositoryStub, 'add').mockImplementationOnce(throwError)
     const promise = sut.add(makeFakeRequest())
     await expect(promise).rejects.toThrow()
   })

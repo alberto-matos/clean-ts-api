@@ -1,3 +1,4 @@
+import { throwError } from '@/domain/test'
 import { AuthenticationParams, LoadAccountByEmailRepository, HashComparer, Encrypter, UpdateAccessTokenRepository, AccountModel, DbAuthentication } from './db-authentication-protocols'
 
 const makeFakeAccount = (): AccountModel => ({
@@ -159,7 +160,7 @@ describe('DbAuthentication UseCase', () => {
 
   test('Should throw if UpdateAccessTokenRepository throws exception', async () => {
     const { sut, updateAccessTokenRepositoryStub } = makeSut()
-    jest.spyOn(updateAccessTokenRepositoryStub, 'updateAccessToken').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error('any error'))))
+    jest.spyOn(updateAccessTokenRepositoryStub, 'updateAccessToken').mockImplementationOnce(throwError)
     const promise = sut.auth(makeFakeAuthentication())
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     await expect(promise).rejects.toThrow()

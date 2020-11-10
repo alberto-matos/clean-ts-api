@@ -36,9 +36,7 @@ describe('DbAuthentication UseCase', () => {
   test('Should throw if LoadAccountByEmailRepository throws exception', async () => {
     const { sut, loadAccountRepositoryStub } = makeSut()
     jest.spyOn(loadAccountRepositoryStub, 'loadByEmail').mockImplementationOnce(async (email: string): Promise<AccountModel> => {
-      return await new Promise((resolve, reject) => {
-        reject(new Error('any error'))
-      })
+      return await Promise.reject(new Error())
     })
     const promise = sut.auth(mockAuthenticationParams())
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -62,9 +60,7 @@ describe('DbAuthentication UseCase', () => {
   test('Should throw if HashComparer throws exception', async () => {
     const { sut, hashComparerStub } = makeSut()
     jest.spyOn(hashComparerStub, 'compare').mockImplementationOnce(async (value: string, hash: string): Promise<boolean> => {
-      return await new Promise((resolve, reject) => {
-        reject(new Error('any error'))
-      })
+      return await Promise.reject(new Error())
     })
     const promise = sut.auth(mockAuthenticationParams())
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -73,7 +69,7 @@ describe('DbAuthentication UseCase', () => {
 
   test('Should return null if HashComparer returns false', async () => {
     const { sut, hashComparerStub } = makeSut()
-    jest.spyOn(hashComparerStub, 'compare').mockReturnValueOnce(new Promise(resolve => resolve(false)))
+    jest.spyOn(hashComparerStub, 'compare').mockReturnValueOnce(Promise.resolve(false))
     const accessToken = await sut.auth(mockAuthenticationParams())
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     await expect(accessToken).toBeNull()
@@ -89,9 +85,7 @@ describe('DbAuthentication UseCase', () => {
   test('Should throw if Encrypter throws exception', async () => {
     const { sut, encrypterStub } = makeSut()
     jest.spyOn(encrypterStub, 'encrypt').mockImplementationOnce(async (value: string): Promise<string> => {
-      return await new Promise((resolve, reject) => {
-        reject(new Error('any error'))
-      })
+      return await Promise.reject(new Error())
     })
     const promise = sut.auth(mockAuthenticationParams())
     // eslint-disable-next-line @typescript-eslint/no-floating-promises

@@ -12,7 +12,7 @@ export class AddSurveyController implements Controller {
     try {
       const error = this.validation.validate(httpRequest.body)
       if (error) {
-        return await new Promise(resolve => resolve(badRequest(error)))
+        return await Promise.resolve(badRequest(error))
       }
       const { question, answers } = httpRequest.body
       const date = new Date()

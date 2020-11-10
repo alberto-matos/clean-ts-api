@@ -57,14 +57,14 @@ describe('DbLoadAccountByToken Usecase', () => {
 
   test('should throw if LoadAccountByTokenRepository throws exception ', async () => {
     const { sut, loadAccountByTokenRepositoryStub } = makeSut()
-    jest.spyOn(loadAccountByTokenRepositoryStub, 'loadByToken').mockReturnValue(new Promise((resolve, reject) => reject(new Error())))
+    jest.spyOn(loadAccountByTokenRepositoryStub, 'loadByToken').mockReturnValue(Promise.reject(new Error()))
     const promise = sut.load('any_token', 'any_role')
     await expect(promise).rejects.toThrow()
   })
 
   test('should throw if Decrypter throws exception ', async () => {
     const { sut, decrypterStub } = makeSut()
-    jest.spyOn(decrypterStub, 'decrypt').mockReturnValue(new Promise((resolve, reject) => reject(new Error())))
+    jest.spyOn(decrypterStub, 'decrypt').mockReturnValue(Promise.reject(new Error()))
     const promise = sut.load('any_token', 'any_role')
     await expect(promise).rejects.toThrow()
   })

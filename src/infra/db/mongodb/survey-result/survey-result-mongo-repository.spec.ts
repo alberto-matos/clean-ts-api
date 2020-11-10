@@ -4,6 +4,7 @@ import { SurveyResultMongoRepository } from './survey-result-mongo-repository'
 import { Collection } from 'mongodb'
 import { SurveyModel } from '@/domain/models/survey'
 import { AccountModel } from '../account/account-mongo-repository-protocols'
+import { mockSurvey } from '@/data/test'
 
 let surveyCollection: Collection
 let surveyResultCollection: Collection
@@ -21,17 +22,8 @@ const makeSut = (): SutTypes => {
 }
 
 const makeFakeSurvey = async (): Promise<SurveyModel> => {
-  const res = await surveyCollection.insertOne(
-    {
-      question: 'any_question',
-      answers: [{
-        image: 'any_image',
-        answer: 'any_answer'
-      }, {
-        answer: 'other_answer'
-      }],
-      date: new Date()
-    })
+  const { id, ...survey } = mockSurvey()
+  const res = await surveyCollection.insertOne(survey)
   return res.ops[0]
 }
 

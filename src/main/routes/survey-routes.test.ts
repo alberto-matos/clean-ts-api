@@ -4,6 +4,7 @@ import app from '../config/app'
 import { Collection } from 'mongodb'
 import jwt from 'jsonwebtoken'
 import env from '../config/environments'
+import { mockSurvey } from '@/data/test'
 
 let surveyCollection: Collection
 let accountCollection: Collection
@@ -16,17 +17,8 @@ const makeAccessToken = async (): Promise<string> => {
 }
 
 const makeFakeSurvey = (): any => {
-  return {
-    question: 'any_question',
-    answers: [
-      {
-        image: 'http://image-name.jpg',
-        answer: 'any_answer'
-      }, {
-        answer: 'other_answer'
-      }
-    ]
-  }
+  const { id, date, ...survey } = mockSurvey()
+  return survey
 }
 
 const insertFakeAccount = async (): Promise<string> => {

@@ -1,3 +1,4 @@
+import { SurveyResultModel } from '../models/survey-result'
 import { SaveSurveyResultParams } from '../usecases/survey-result/save-survey-result'
 
 export const mockSurveyResultParams = (): SaveSurveyResultParams => {
@@ -8,3 +9,5 @@ export const mockSurveyResultParams = (): SaveSurveyResultParams => {
     date: new Date()
   }
 }
+
+export const mockSurveyResultModel = (): SurveyResultModel => Object.assign({}, mockSurveyResultParams(), { id: 'any_id' })

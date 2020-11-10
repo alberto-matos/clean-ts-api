@@ -2,7 +2,8 @@ import { LoadSurveysController } from './load-surveys-controller'
 import { LoadSurveys, ok, serverError, SurveyModel } from './load-surveys-controller-protocols'
 import MockDate from 'mockdate'
 import { noContent } from '@/presentation/helpers/http/http-helper'
-import { mockLoadSurveys, mockSurveysModel } from '@/presentation/test'
+import { mockLoadSurveys } from '@/presentation/test'
+import { mockSurveysModel } from '@/domain/test'
 
 type SutTypes = {
   sut: LoadSurveysController

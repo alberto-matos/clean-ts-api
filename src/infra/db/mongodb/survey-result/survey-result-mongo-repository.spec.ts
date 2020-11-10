@@ -4,7 +4,7 @@ import { SurveyResultMongoRepository } from './survey-result-mongo-repository'
 import { Collection } from 'mongodb'
 import { SurveyModel } from '@/domain/models/survey'
 import { AccountModel } from '../account/account-mongo-repository-protocols'
-import { mockSurvey } from '@/data/test'
+import { mockAccountModel , mockSurveyModel } from '@/domain/test'
 
 let surveyCollection: Collection
 let surveyResultCollection: Collection
@@ -22,19 +22,13 @@ const makeSut = (): SutTypes => {
 }
 
 const makeFakeSurvey = async (): Promise<SurveyModel> => {
-  const { id, ...survey } = mockSurvey()
+  const { id, ...survey } = mockSurveyModel()
   const res = await surveyCollection.insertOne(survey)
   return res.ops[0]
 }
 
 const makeFakeAccount = async (): Promise<AccountModel> => {
-  const res = await accountCollection.insertOne(
-    {
-      id: 'any_id',
-      name: 'any_name',
-      email: 'email@email.com',
-      password: 'any_password'
-    })
+  const res = await accountCollection.insertOne(mockAccountModel())
   return res.ops[0]
 }
 

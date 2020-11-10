@@ -3,6 +3,7 @@ import { AddAccount, AddAccountParams, AccountModel, Validation, Authentication,
 import { MissingParamError, ServerError, EmailInUseError } from '@/presentation/errors'
 import { ok, badRequest, forbidden } from '@/presentation/helpers/http/http-helper'
 import { HttpRequest } from '@/presentation/protocols/http'
+import { mockAccountModel } from '@/domain/test'
 
 const makeFakeHttpRequest = (): HttpRequest => ({
   body: {
@@ -13,18 +14,10 @@ const makeFakeHttpRequest = (): HttpRequest => ({
   }
 })
 
-const makeFakeAccount = (): AccountModel => (
-  {
-    id: 'any_id',
-    name: 'any_name',
-    email: 'any_email@email.com',
-    password: 'any_password'
-  })
-
 const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
     async add (account: AddAccountParams): Promise<AccountModel> {
-      return await new Promise(resolve => resolve(makeFakeAccount()))
+      return await new Promise(resolve => resolve(mockAccountModel()))
     }
   }
   return new AddAccountStub()
@@ -72,10 +65,11 @@ describe('SignUp Controller', () => {
   test('Should calls AddAccount with correct values', async () => {
     const { sut, addAccountStub } = makeSut()
     const addSpy = jest.spyOn(addAccountStub, 'add')
-    await sut.handle(makeFakeHttpRequest())
-    const addAccount = makeFakeAccount()
+    const httpRequest = makeFakeHttpRequest()
+    await sut.handle(httpRequest)
+    const addAccount = mockAccountModel()
     delete (addAccount.id)
-    expect(addSpy).toHaveBeenCalledWith(addAccount)
+    expect(addSpy).toHaveBeenCalledWith({ name: httpRequest.body.name, email: httpRequest.body.email, password: httpRequest.body.password })
   })
 
   test('Should return 500 if AddAccount throws exception', async () => {

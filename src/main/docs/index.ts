@@ -1,5 +1,6 @@
-import { loginPath } from './paths/login-path'
-import { accountSchema, loginParamsSchema, unauthorized, badRequest } from './schemas'
+import { loginPath } from './paths'
+import { accountSchema, loginParamsSchema, errorSchema } from './schemas'
+import { badRequestComponent, unauthorizedComponent, serverErrorComponent, notFoundComponent } from './components'
 
 export default {
   openapi: '3.0.0',
@@ -10,8 +11,12 @@ export default {
       * TypeScript \n      * 
       * Clean architecture \n
       * SOLID \n
-      * TDD`,
+      * TDD `,
     version: '1.0.0'
+  },
+  license: {
+    name: 'GPL-3.0-or-later',
+    url: 'https://spdx.org/licenses/GPL-3.0-or-later.html'
   },
   servers: [{
     url: '/api',
@@ -26,7 +31,12 @@ export default {
   schemas: {
     account: accountSchema,
     loginParams: loginParamsSchema,
-    unauthorized: unauthorized,
-    badRequest: badRequest
+    error: errorSchema
+  },
+  components: {
+    badRequest: badRequestComponent,
+    unauthorized: unauthorizedComponent,
+    serverError: serverErrorComponent,
+    notFound: notFoundComponent
   }
 }

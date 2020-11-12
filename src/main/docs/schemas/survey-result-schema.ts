@@ -1,25 +1,24 @@
 export const surveyResultSchema = {
   type: 'object',
   properties: {
-    id: {
+    surveyId: {
       type: 'string',
       example: '5fa9463b489dd1671eb323db'
     },
-    surveyId: {
+    question: {
       type: 'string',
-      example: '5fa9463b489dd6171eb521db'
+      example: 'Qual sua linguagem preferida?'
     },
-    accountId: {
-      type: 'string',
-      example: '5fa9463b489dd6771eb401ba'
-    },
-    answer: {
-      type: 'string',
-      example: 'Resposta do usuário'
+    answers: {
+      type: 'array',
+      items: {
+        $ref: '#/schemas/surveyResultAnswer'
+      }
     },
     date: {
       type: 'string',
       example: '11/11/2020'
     }
-  }
+  },
+  required: ['surveyId', 'question', 'answers', 'date']
 }

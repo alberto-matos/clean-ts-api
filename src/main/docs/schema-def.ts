@@ -1,6 +1,6 @@
 import {
   accountSchema, loginParamsSchema, errorSchema, surveySchema, surveyAnswerSchema, surveysSchema,
-  signupParamsSchema, addSurveySchema, saveSurveyResultParamsSchema, surveyResultSchema
+  signupParamsSchema, addSurveySchema, saveSurveyResultParamsSchema, surveyResultSchema, surveyResultAnswerSchema
 } from './schemas/'
 
 export default {
@@ -13,5 +13,6 @@ export default {
   signupParams: signupParamsSchema,
   addSurveyParams: addSurveySchema,
   saveSurveyResultParams: saveSurveyResultParamsSchema,
-  surveyResult: surveyResultSchema
+  surveyResult: surveyResultSchema,
+  surveyResultAnswer: surveyResultAnswerSchema
 }

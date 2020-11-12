@@ -1,24 +1,29 @@
-import { SaveSurveyResultRepository, SurveyResultModel, SaveSurveyResultParams, MongoHelper } from './survey-result-mongo-repository-protocols'
-import { Collection } from 'mongodb'
+import { SaveSurveyResultRepository, SurveyResultModel, SaveSurveyResultParams, MongoHelper, getQuery } from './survey-result-mongo-repository-protocols'
+import { Collection, ObjectId } from 'mongodb'
 
 export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
-  private async getAccountCollection (): Promise<Collection> {
+  private async getSurveyResultCollection (): Promise<Collection> {
     return await MongoHelper.getCollection('surveyResults')
   }
 
   async save (surveyData: SaveSurveyResultParams): Promise<SurveyResultModel> {
-    const surveyResult = await (await this.getAccountCollection()).findOneAndUpdate({
-      surveyId: surveyData.surveyId,
-      accountId: surveyData.accountId
+    await (await this.getSurveyResultCollection()).findOneAndUpdate({
+      surveyId: new ObjectId(surveyData.surveyId),
+      accountId: new ObjectId(surveyData.accountId)
     }, {
       $set: {
         answer: surveyData.answer,
         date: surveyData.date
       }
     }, {
-      upsert: true,
-      returnOriginal: false
+      upsert: true
     })
-    return surveyResult && MongoHelper.map(surveyResult.value)
+    return await this.loadBySurveyId(surveyData.surveyId)
+  }
+
+  private async loadBySurveyId (surveyId: string): Promise<SurveyResultModel> {
+    const query = (await this.getSurveyResultCollection()).aggregate(getQuery(surveyId))
+    const surveyResult = await query.toArray()
+    return surveyResult[0]
   }
 }

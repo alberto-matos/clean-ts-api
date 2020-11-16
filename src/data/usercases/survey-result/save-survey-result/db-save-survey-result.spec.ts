@@ -35,7 +35,6 @@ describe('DbSaveSurveyResult Usecase', () => {
 
   test('Should throw if SaveSurveyRepository throws', async () => {
     const { sut, saveSurveyResultRepositoryStub } = makeSut()
-    // eslint-disable-next-line promise/param-names
     jest.spyOn(saveSurveyResultRepositoryStub, 'save').mockImplementationOnce(throwError)
     const promise = sut.save(mockSurveyResultParams())
     await expect(promise).rejects.toThrow()

@@ -1,7 +1,10 @@
-import { SaveSurveyResultRepository, SurveyResultModel, SaveSurveyResultParams, MongoHelper, getQuery } from './survey-result-mongo-repository-protocols'
 import { Collection, ObjectId } from 'mongodb'
+import {
+  SaveSurveyResultRepository, LoadSurveyResultRepository, SurveyResultModel,
+  SaveSurveyResultParams, MongoHelper, getQuery
+} from './survey-result-mongo-repository-protocols'
 
-export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
+export class SurveyResultMongoRepository implements SaveSurveyResultRepository, LoadSurveyResultRepository {
   private async getSurveyResultCollection (): Promise<Collection> {
     return await MongoHelper.getCollection('surveyResults')
   }
@@ -21,7 +24,7 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
     return await this.loadBySurveyId(surveyData.surveyId)
   }
 
-  private async loadBySurveyId (surveyId: string): Promise<SurveyResultModel> {
+  async loadBySurveyId (surveyId: string): Promise<SurveyResultModel> {
     const query = (await this.getSurveyResultCollection()).aggregate(getQuery(surveyId))
     const surveyResult = await query.toArray()
     return surveyResult[0]

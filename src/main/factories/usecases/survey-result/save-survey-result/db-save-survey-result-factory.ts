@@ -2,5 +2,5 @@ import { SurveyResultMongoRepository, DbSaveSurveyResult, SaveSurveyResult } fro
 
 export const makeDbSaveSurveyResult = (): SaveSurveyResult => {
   const surveyMongoRepository = new SurveyResultMongoRepository()
-  return new DbSaveSurveyResult(surveyMongoRepository)
+  return new DbSaveSurveyResult(surveyMongoRepository, surveyMongoRepository)
 }

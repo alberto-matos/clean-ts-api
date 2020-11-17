@@ -9,7 +9,7 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository, 
     return await MongoHelper.getCollection('surveyResults')
   }
 
-  async save (surveyData: SaveSurveyResultParams): Promise<SurveyResultModel> {
+  async save (surveyData: SaveSurveyResultParams): Promise<void> {
     await (await this.getSurveyResultCollection()).findOneAndUpdate({
       surveyId: new ObjectId(surveyData.surveyId),
       accountId: new ObjectId(surveyData.accountId)
@@ -21,7 +21,6 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository, 
     }, {
       upsert: true
     })
-    return await this.loadBySurveyId(surveyData.surveyId)
   }
 
   async loadBySurveyId (surveyId: string): Promise<SurveyResultModel> {

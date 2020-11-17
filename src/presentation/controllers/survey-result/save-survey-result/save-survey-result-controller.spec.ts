@@ -17,7 +17,7 @@ const mockRequest = (): HttpRequest => ({
     surveyId: 'any_survey_id'
   },
   body: {
-    answer: 'any_answer'
+    answer: 'any_answer1'
   },
   accountId: 'any_account_id'
 })

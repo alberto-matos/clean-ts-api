@@ -99,7 +99,7 @@ describe('SignUp Controller', () => {
     expect(authSpy).toHaveBeenCalledWith(authentication)
   })
 
-  test('Should return 500 if Athentication throws exception', async () => {
+  test('Should return 500 if Authentication throws exception', async () => {
     const { sut, authenticationStub } = makeSut()
     jest.spyOn(authenticationStub, 'auth').mockImplementationOnce(() => {
       throw Error('Any error.')

@@ -1,4 +1,4 @@
-import { Controller, HttpRequest, HttpResponse } from '../login/login/login-controller-protocols'
+import { Controller, forbidden, HttpRequest, HttpResponse, InvalidParamError } from '../login/login/login-controller-protocols'
 import { LoadSurveyById } from '../survey-result/save-survey-result/save-survey-result-controller-protocols'
 
 export class LoadSurveyResultController implements Controller {
@@ -7,8 +7,12 @@ export class LoadSurveyResultController implements Controller {
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     const surveyId = httpRequest.params?.surveyId
     if (surveyId) {
-      await this.loadSurveyById.loadById(surveyId)
+      const survey = await this.loadSurveyById.loadById(surveyId)
+      if (!survey) {
+        return forbidden(new InvalidParamError('SurveyId'))
+      }
     }
+
     return null
   }
 }

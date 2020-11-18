@@ -1,5 +1,5 @@
 import { LoadSurveyResult } from '@/domain/usecases/survey-result/load-survey-result'
-import { Controller, forbidden, HttpRequest, HttpResponse, InvalidParamError, serverError } from '../login/login/login-controller-protocols'
+import { Controller, forbidden, HttpRequest, HttpResponse, InvalidParamError, ok, serverError } from '../login/login/login-controller-protocols'
 import { LoadSurveyById } from '../survey-result/save-survey-result/save-survey-result-controller-protocols'
 
 export class LoadSurveyResultController implements Controller {
@@ -15,9 +15,9 @@ export class LoadSurveyResultController implements Controller {
       if (!survey) {
         return forbidden(new InvalidParamError('SurveyId'))
       }
-      await this.loadSurveyResult.load(surveyId)
 
-      return null
+      const surveyResult = await this.loadSurveyResult.load(surveyId)
+      return ok(surveyResult)
     } catch (error) {
       return serverError(error)
     }

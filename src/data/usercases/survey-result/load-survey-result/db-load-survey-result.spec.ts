@@ -1,7 +1,7 @@
 import { LoadSurveyResultRepository, LoadSurveyByIdRepository } from './db-load-survey-result-protocols'
 import { mockLoadSurveyByIdRepository, mockLoadSurveyResultRepository } from '@/data/test'
 import { mockSurveyResultModel, throwError } from '@/domain/test'
-import { DbLoadSurveyResult } from './db-load-survey-result.'
+import { DbLoadSurveyResult } from './db-load-survey-result'
 import MockDate from 'mockdate'
 
 interface sutTypes {

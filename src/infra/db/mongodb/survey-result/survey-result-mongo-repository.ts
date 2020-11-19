@@ -26,6 +26,6 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository, 
   async loadBySurveyId (surveyId: string): Promise<SurveyResultModel> {
     const query = (await this.getSurveyResultCollection()).aggregate(getQuery(surveyId))
     const surveyResult = await query.toArray()
-    return surveyResult[0]
+    return surveyResult.length ? surveyResult[0] : null
   }
 }
